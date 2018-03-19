@@ -7,7 +7,7 @@ package parsing_json;
 public class ElementCollection extends ArrayList<Element> {
 
     public Element findByAtomicNumber(int atomic_number) {
-        for(Element element : ElementCollectionInitializer.generate()) {
+        for(Element element : this) {
             if(element.getNumber() == atomic_number) {
                 return element;
             }
@@ -16,7 +16,7 @@ public class ElementCollection extends ArrayList<Element> {
     }
 
     public Element findByName(String name) {
-        for(Element element : ElementCollectionInitializer.generate()) {
+        for(Element element : this) {
             if(element.getName().equals(name)) {
                 return element;
             }
@@ -26,7 +26,7 @@ public class ElementCollection extends ArrayList<Element> {
 
     public ElementCollection where(String fieldName, Object value) {
         ElementCollection elementCollection = new ElementCollection();
-        for(Element element : ElementCollectionInitializer.generate()) {
+        for(Element element : this) {
             Field[] fields = element.getClass().getDeclaredFields();
             for(Field field : fields) {
                 if(field.getName().equals(fieldName)) {

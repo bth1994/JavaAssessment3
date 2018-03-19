@@ -15,10 +15,7 @@ public class Password {
     }
 
     public boolean matches(String password_plaintext) {
-        if(BCrypt.checkpw(password_plaintext, this.hash)) {
-            return true;
-        }
-        return false;
+        return BCrypt.checkpw(password_plaintext, this.hash);
     }
 
     public String getHash() {
