@@ -1,4 +1,6 @@
 package user_management.validation;
 
-public class EmailNotAvailableException{
+import user_management.security.UserAuthenticationFailedException;
+
+public class EmailNotAvailableException extends UserAuthenticationFailedException {
 }

@@ -1,16 +1,48 @@
 package parsing_json;
 
-public class ElementCollection {
+        import java.lang.reflect.Field;
+        import java.util.ArrayList;
+        import java.util.Arrays;
+
+public class ElementCollection extends ArrayList<Element> {
 
     public Element findByAtomicNumber(int atomic_number) {
+        for(Element element : ElementCollectionInitializer.generate()) {
+            if(element.getNumber() == atomic_number) {
+                return element;
+            }
+        }
         return null;
     }
 
     public Element findByName(String name) {
+        for(Element element : ElementCollectionInitializer.generate()) {
+            if(element.getName().equals(name)) {
+                return element;
+            }
+        }
         return null;
     }
 
     public ElementCollection where(String fieldName, Object value) {
-        return null;
+        ElementCollection elementCollection = new ElementCollection();
+        for(Element element : ElementCollectionInitializer.generate()) {
+            Field[] fields = element.getClass().getDeclaredFields();
+            for(Field field : fields) {
+                if(field.getName().equals(fieldName)) {
+                    field.setAccessible(true);
+                    try {
+                        if(field.get(element).equals(value)) {
+                            elementCollection.add(element);
+                        } else if (field.get(element) == value) {
+                            elementCollection.add(element);
+                        }
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return elementCollection;
     }
 }
